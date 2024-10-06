@@ -1,9 +1,12 @@
 services:
-  postgres:
-    image: 'postgres:latest'
+
+
+  mysql:
+    image: 'mysql:latest'
     environment:
-      - 'POSTGRES_DB=dbtest'
-      - 'POSTGRES_PASSWORD=test'
-      - 'POSTGRES_USER=test'
+      - 'MYSQL_DATABASE=dbtest'
+      - 'MYSQL_PASSWORD=test'
+      - 'MYSQL_ROOT_PASSWORD=test'
+      - 'MYSQL_USER=test'
     ports:
-      - '5432'
+      - '5434:3306'
