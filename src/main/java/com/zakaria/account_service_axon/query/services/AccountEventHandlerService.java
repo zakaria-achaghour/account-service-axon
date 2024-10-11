@@ -7,6 +7,7 @@ import com.zakaria.account_service_axon.commonApi.events.AccountCreditedEvent;
 import com.zakaria.account_service_axon.commonApi.events.AccountDebitedEvent;
 import com.zakaria.account_service_axon.query.entities.Account;
 import com.zakaria.account_service_axon.query.entities.AccountTransaction;
+import com.zakaria.account_service_axon.query.queries.GetAccountById;
 import com.zakaria.account_service_axon.query.queries.GetAllAccounts;
 import com.zakaria.account_service_axon.query.repository.AccountRepository;
 import com.zakaria.account_service_axon.query.repository.TransactionRepository;
@@ -84,5 +85,10 @@ public class AccountEventHandlerService {
     @QueryHandler
     public List<Account> on(GetAllAccounts query){
         return accountRepository.findAll();
+    }
+
+    @QueryHandler
+    public Account on(GetAccountById query){
+        return accountRepository.findById(query.getId()).get();
     }
 }

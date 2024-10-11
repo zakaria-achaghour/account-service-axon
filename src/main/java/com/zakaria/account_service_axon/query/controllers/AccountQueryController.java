@@ -2,11 +2,12 @@ package com.zakaria.account_service_axon.query.controllers;
 
 
 import com.zakaria.account_service_axon.query.entities.Account;
+import com.zakaria.account_service_axon.query.queries.GetAccountById;
 import com.zakaria.account_service_axon.query.queries.GetAllAccounts;
-import org.axonframework.messaging.responsetypes.ResponseType;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,5 +27,10 @@ public class AccountQueryController {
     @GetMapping("/list")
     public CompletableFuture<List<Account>> accountList() {
        return queryGateway.query(new GetAllAccounts(), ResponseTypes.multipleInstancesOf(Account.class));
+    }
+
+    @GetMapping("/{id}")
+    public Account getAcount(@PathVariable String id) {
+        return queryGateway.query(new GetAccountById(id), ResponseTypes.instanceOf(Account.class)).join();
     }
 }
